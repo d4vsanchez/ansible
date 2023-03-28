@@ -2,14 +2,13 @@
   git_config:
     name: user.email
     scope: global
-    value: "d4vsanchez@gmail.com"
+    value: "{{ lookup('env', 'GIT_EMAIL') }}"
   tags:
-  - git-personal
+    - git-personal
 - name: Git personal setup name
   git_config:
     name: user.name
     scope: global
-    value: "David Sánchez"
+    value: "{{ lookup('env', 'GIT_NAME') }}"
   tags:
-  - git-personal
-
+    - git-personal
