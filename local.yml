@@ -2,6 +2,8 @@
   vars:
     source_key: "./.ssh/id_ed25519"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
+
+    fonts_dir: "{{ lookup('env', 'HOME') }}/Library/Fonts"
   pre_tasks:
     - name: Ensure that Homebrew is installed
       shell: command -v brew
@@ -30,3 +32,4 @@
     - import_tasks: tasks/ssh.yml
     - import_tasks: tasks/git-setup.yml
     - import_tasks: tasks/homebrew-setup.yml
+    - import_tasks: tasks/fonts-setup.yml

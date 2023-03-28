@@ -1,0 +1,44 @@
+- name: Ensure fonts directory
+  file:
+    path: "{{ fonts_dir }}"
+    mode: 0700
+    state: directory
+  tags:
+    - fonts
+
+- name: Check if VictorMono exists
+  stat:
+    path: "{{ fonts_dir }}/VictorMono"
+  register: victor_mono_exists
+  ignore_errors: yes
+  tags:
+    - fonts
+    - victor_mono
+
+- name: Create VictorMono folder
+  file:
+    dest: "{{ fonts_dir }}/VictorMono"
+    mode: 0700
+    state: directory
+  tags:
+    - fonts
+    - victor_mono
+
+- name: Download VictorMono
+  when: not victor_mono_exists.stat.exists
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/VictorMono.zip
+    dest: "{{ fonts_dir }}/VictorMono"
+    remote_src: yes
+  tags:
+    - fonts
+    - victor_mono
+
+- name: Remove Windows fonts
+  shell: |
+    unalias find
+    find {{ fonts_dir }}/VictorMono -type f -name "*Windows Compatible.ttf" -delete
+    find {{ fonts_dir }}/VictorMono -type f ! -name "*Mono.ttf" -delete
+  tags:
+    - fonts
+    - victor_mono
