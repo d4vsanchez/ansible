@@ -1,0 +1,36 @@
+- name: Install Casks
+  community.general.homebrew_cask:
+    name:
+      - visual-studio-code
+      - kitty
+      - telegram
+      - veracrypt
+      - vlc
+      - google-chrome
+      - 1password
+      - obsidian
+      - raycast
+      - rectangle
+      - shottr
+      - transmission
+      - docker
+    state: present
+  tags:
+    - install
+    - casks
+
+- name: Install CLIs
+  community.general.homebrew:
+    name:
+      - zsh
+      - git
+      - tmux
+      - neovim
+      - starship
+      - fnm
+      - direnv
+      - jq
+    state: present
+  tags:
+    - install
+    - cli
