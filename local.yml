@@ -3,6 +3,22 @@
     source_key: "./.ssh/id_ed25519"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
   pre_tasks:
+    - name: Ensure that Homebrew is installed
+      shell: command -v brew
+      register: homebrew_exists
+      changed_when: false
+      ignore_errors: true
+      tags:
+        - install
+        - core
+
+    - name: Install Homebrew
+      shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      when: not homebrew_exists
+      tags:
+        - install
+        - core
+
     - name: Update Brew
       community.general.homebrew:
         update_homebrew: yes
