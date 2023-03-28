@@ -1,0 +1,26 @@
+- name: Check if Cargo is already installed
+  shell: command -v cargo
+  register: cargo_exists
+  changed_when: false
+  ignore_errors: yes
+  tags:
+    - install
+    - rust
+
+- name: Download Rust installer
+  when: not cargo_exists
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: 0755
+    force: yes
+  tags:
+    - install
+    - rust
+
+- name: Install Rust
+  when: not cargo_exists
+  shell: /tmp/sh.rustup.rs -y
+  tags:
+    - install
+    - rust

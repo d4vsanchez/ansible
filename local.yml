@@ -33,3 +33,4 @@
     - import_tasks: tasks/git-setup.yml
     - import_tasks: tasks/homebrew-setup.yml
     - import_tasks: tasks/fonts-setup.yml
+    - import_tasks: tasks/rust-setup.yml
